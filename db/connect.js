@@ -1,10 +1,10 @@
 const mongoose = require("mongoose")
 
-const connectionString = "mongodb+srv://aluparsad:ysyogesh4444@nodeexpessprojects.nxdgr.mongodb.net/TASK-MANAGER?retryWrites=true&w=majority"
+const connectDB = (url)=>{
+    mongoose.connect(url,{
+        useNewUrlParser:true,
+        useUnifiedTopology:true,
+    })
+}
 
-mongoose.connect(connectionString,{
-    useNewUrlParser:true,
-    useUnifiedTopology:true,
-})
-.then(()=>console.log(`Connected to the DB...`))
-.catch(err=>console.log(err))
+module.exports = connectDB
