@@ -1,21 +1,59 @@
-const getAllTasks = (req,res) =>{
-    res.send('All Items')
+const Task = require("../models/Task")
+
+//Queries
+
+
+const getAllTasks =async (req,res) =>{
+    try{
+        const tasks = await Task.find({})
+        res.status(201).json({tasks})
+    }
+    catch(error){
+        res.status(500).json({msg:error})
+
+    }
 }
 
-const createTask = (req,res)=>{
-    res.json("Create Task Request")
+const createTask = async (req,res)=>{
+    try{
+        const task = await Task.create(req.body)
+        res.status(201).json({task})
+    }
+    catch(error){
+        res.status(500).json({msg:error})
+    }
+
 }
 
-const getTask = (req,res)=>{
-    res.json({id:req.params.id})
+const getTask = async(req,res)=>{
+    try{
+        const data = await Task.find({_id:req.params.id})
+        res.status(201).json({data})
+    }
+    catch(error){
+        res.status(404).json({msg:error})
+    }
 }
 
-const updateTask = (req,res)=>{
-    res.send("update task")
+const updateTask = async (req,res)=>{
+    try{
+        const query = {"_id":req.params.id}
+        const data = await Task.updateOne(query,req.body)
+        res.status(201).json({"updated":data})
+    }
+    catch(error){
+        res.status(500).json({msg:error})
+    }
 }
 
-const deleteTask = (req,res)=>{
-    res.send("delete task")
+const deleteTask = async (req,res)=>{
+    try{
+        const data = await Task.deleteOne({_id:req.params.id})
+        res.status(200).send(data)  
+    }
+    catch(error){
+        res.status(500).json({error})
+    }
 }
 
 module.exports = {getAllTasks,createTask, getTask, updateTask, deleteTask,}

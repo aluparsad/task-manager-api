@@ -7,13 +7,18 @@ require('dotenv').config()
 //Initialize app
 const app = express();
 
-
-//middleware
-// app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
 //PORT
 const PORT = 5500;
+
+//middleware
+app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded())
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+//Requests Handling and Route forwarding
+app.use('/api/v1/tasks',tasks);
+
 
 const start = async()=>{
     try{
@@ -26,9 +31,5 @@ const start = async()=>{
         console.log(error)
     }
 }
-
-
-//Requests Handling and Route forwarding
-app.use('/api/v1/tasks',tasks);
 
 start()
