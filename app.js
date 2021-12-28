@@ -1,14 +1,16 @@
 const express = require("express");
 const tasks = require("./routes/tasks")
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const connectDB = require('./db/connect')
 require('dotenv').config()
 
 //Initialize app
 const app = express();
+app.use(cors);
 
 //PORT
-const PORT = 5500;
+const PORT = 80;
 
 //middleware
 app.use(bodyParser.json());
