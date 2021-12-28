@@ -37,7 +37,7 @@ const getTask = async(req,res)=>{
 
 const updateTask = async (req,res)=>{
     try{
-        const query = {"_id":req.params.id}
+        const query = {_id:req.params.id}
         const data = await Task.updateOne(query,req.body)
         res.status(201).json({"updated":data})
     }
